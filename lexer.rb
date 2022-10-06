@@ -3,23 +3,49 @@ require 'pry'
 
 class EdiLexer < Lex::Lexer
   tokens(
-    # :SEGSTART,
-    :SEGSEP,
+    :SEGSTART,
+    :SEGEND,
     :ELEMSEP,
     :ELEM
   )
 
-  # rule(:SEGSTART, /^\w{2,3}|(?<=~)\w{2,3}/)
-  rule(:ELEMSEP, /\*|\|/)
-  rule(:SEGSEP, /~|\n/)
-  # rule(:ELEM, /([\\(\\):a-zA-Z0-9^>-\u00C0-\u017F,!?.]\s?)+/) do |_lexer, token|
-  # rule(:ELEM, /(?<=[\*\s])[@\-\\(\\)>^?,!.:;_\w\s]+(?=[~\*])/) do |_lexer, token|
-  rule(:ELEM, //) do |_lexer, token|
-    token.value = token.value.strip
+  states(
+    insegment: :exclusive,
+    inelement: :exclusive
+  )
+
+  rule(:SEGSTART, /\w{2,3}(?=\*)/) do |lexer, token|
+    lexer.push_state(:insegment)
+    token
+  end
+
+  rule(:insegment_ELEMSEP, /\*|\|/) do |lexer, token|
+    if lexer.current_state == :insegment
+      lexer.push_state(:inelement)
+    else
+      lexer.pop_state
+    end
+    token
+  end
+
+  rule(:inelement_ELEMSEP, /\*|\|/) do |lexer, token|
+    token
+  end
+
+  rule(:inelement_ELEM, /[\w\s\-\\(\\).,!:@>]+/) do |_lexer, token|
+    # token.value = token.value.strip
+    token
+  end
+
+  rule(:inelement_SEGEND, /~|\n/) do |lexer, token|
+    lexer.pop_state
+    lexer.pop_state
     token
   end
 
   ignore "\s\t\n"
+  ignore :insegment, "\t"
+  ignore :inelement, "\t"
 
   def lex_str(str)
     lex(str).map { |o| [o.name, o.value] }
