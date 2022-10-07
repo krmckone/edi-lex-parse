@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-require_relative "lib/ruby/edi/version"
+require_relative "lib/edir/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "ruby-edi"
-  spec.version = Ruby::Edi::VERSION
+  spec.name = "edir"
+  spec.version = Edir::VERSION
   spec.authors = ["Kaleb McKone"]
   spec.email = ["20476319+krmckone@users.noreply.github.com"]
 
   spec.summary = "EDI File parsing in ruby"
-  spec.homepage = "https://github.com/krmckone/ruby-edi"
+  spec.homepage = "https://github.com/krmckone/edir"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/krmckone/ruby-edi"
-  spec.metadata["changelog_uri"] = "https://github.com/krmckone/ruby-edi/CHANGELOG.md"
+  spec.metadata["source_code_uri"] = "https://github.com/krmckone/edir"
+  spec.metadata["changelog_uri"] = "https://github.com/krmckone/edir/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
