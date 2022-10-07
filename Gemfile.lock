@@ -48,6 +48,7 @@ GEM
 
 PLATFORMS
   universal-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   lex (~> 0.1.0)
