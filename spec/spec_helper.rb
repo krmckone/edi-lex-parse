@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "ruby/edi"
+require "edir"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
