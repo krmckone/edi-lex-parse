@@ -58,8 +58,22 @@ module Edir
     ignore :insegment, "\s"
     ignore :inelement, "\s"
 
+    error :insegment do |lexer, token|
+      error_handler(lexer, token)
+    end
+
+    error :inelement do |_lexer, token|
+      error_handler(lexer, token)
+    end
+
     def lex_str(str)
       lex(str).map { |o| [o.name, o.value] }
+    end
+
+    private
+
+    def error_handler(_lexer, token)
+      puts "Illegal character #{token.value}"
     end
   end
 end
