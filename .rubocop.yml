@@ -3,6 +3,7 @@ AllCops:
   Exclude:
     - 'lib/edir/204.tab.rb'
     - 'lib/edir/204.y'
+    - 'vendor/*'
 
 Style/StringLiterals:
   Enabled: true
