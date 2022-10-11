@@ -1,4 +1,6 @@
-require 'lex'
+# frozen_string_literal: true
+
+require "lex"
 
 module Edir
   # Top level API class for providing EDI lexing

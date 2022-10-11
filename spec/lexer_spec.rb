@@ -138,7 +138,7 @@ RSpec.describe Edir::Lexer do
     ],
     N7B: [
       [
-        [:SEGSTART, "N7B"], [:SEGEND, "~"],
+        [:SEGSTART, "N7B"], [:SEGEND, "~"]
       ]
     ],
     M7: [
