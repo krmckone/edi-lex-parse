@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-LEXER_DATA = {
-  ISA: [
+LEXER_FILE_EXAMPLES = {
+  "204": [
     [
       [:SEGSTART, "ISA"], [:ELEMSEP, "*"],
       [:ELEM, "00"], [:ELEMSEP, "*"],
@@ -19,11 +19,7 @@ LEXER_DATA = {
       [:ELEM, "0"], [:ELEMSEP, "*"],
       [:ELEM, "T"], [:ELEMSEP, "*"],
       [:ELEM, "^"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  GS: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "GS"], [:ELEMSEP, "*"],
       [:ELEM, "AA"], [:ELEMSEP, "*"],
       [:ELEM, "64GVCAJ68Y"], [:ELEMSEP, "*"],
@@ -33,173 +29,91 @@ LEXER_DATA = {
       [:ELEM, "598951"], [:ELEMSEP, "*"],
       [:ELEM, "T"], [:ELEMSEP, "*"],
       [:ELEM, "004010"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  ST: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "ST"], [:ELEMSEP, "*"],
       [:ELEM, "204"], [:ELEMSEP, "*"],
       [:ELEM, "386417176"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  B2: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "B2"], [:ELEMSEP, "*"],
       [:ELEMSEP, "*"], [:ELEMSEP, "*"],
       [:ELEMSEP, "*"], [:ELEMSEP, "*"],
       [:ELEMSEP, "*"], [:ELEM, "11"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  B2A: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "B2A"], [:ELEMSEP, "*"],
       [:ELEM, "00"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  MS3: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "MS3"], [:ELEMSEP, "*"],
       [:ELEM, "8651"], [:ELEMSEP, "*"],
       [:ELEM, "1"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  PLD: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "PLD"], [:ELEMSEP, "*"],
       [:ELEM, "10"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  LH6: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "LH6"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  NTE: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "NTE"], [:ELEMSEP, "*"],
       [:ELEMSEP, "*"], [:ELEM, "Try to bypass the SCSI sensor, maybe it will generate the 1080p card!"],
-      [:SEGEND, "~"]
-    ],
-    [
-      [:SEGSTART, "NTE"], [:ELEMSEP, "*"],
-      [:ELEMSEP, "*"], [:ELEM, "If we override the bandwidth, we can get to the SMTP capacitor through the cross"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  N1: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "N1"], [:ELEMSEP, "*"],
       [:ELEM, "01"], [:ELEMSEP, "*"],
       [:ELEM, "Valentina Santiago"],
-      [:SEGEND, "~"]
-    ],
-    [
-      [:SEGSTART, "N1"], [:ELEMSEP, "*"],
-      [:ELEM, "01"], [:ELEMSEP, "*"],
-      [:ELEM, "Yaakv Allen"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  N3: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "N3"], [:ELEMSEP, "*"],
       [:ELEM, "1338 Zboncak Center"],
-      [:SEGEND, "~"]
-    ],
-    [
-      [:SEGSTART, "N3"], [:ELEMSEP, "*"],
-      [:ELEM, "907 Torphy Fords"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  N7: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "N7"], [:ELEMSEP, "*"],
       [:ELEMSEP, "*"], [:ELEM, "381981"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  N7B: [
-    [
-      [:SEGSTART, "N7B"], [:SEGEND, "~"]
-    ]
-  ],
-  M7: [
-    [
+      [:SEGEND, "~"],
+      [:SEGSTART, "N7B"], [:SEGEND, "~"],
       [:SEGSTART, "M7"], [:ELEMSEP, "*"],
       [:ELEM, "158707"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  S5: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "S5"], [:ELEMSEP, "*"],
       [:ELEM, "10"], [:ELEMSEP, "*"],
       [:ELEM, "AL"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  G62: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "G62"], [:ELEMSEP, "*"],
       [:ELEM, "01"], [:ELEMSEP, "*"],
       [:ELEM, "20220227"],
-      [:SEGEND, "~"]
-    ],
-    [
-      [:SEGSTART, "G62"], [:ELEMSEP, "*"],
+      [:SEGEND, "~"],
+      [:SEGSTART, "AT8"], [:SEGEND, "~"],
+      [:SEGSTART, "AT5"], [:SEGEND, "~"],
+      [:SEGSTART, "PLD"], [:ELEMSEP, "*"],
+      [:ELEM, "10"],
+      [:SEGEND, "~"],
+      [:SEGSTART, "NTE"], [:ELEMSEP, "*"],
+      [:ELEMSEP, "*"], [:ELEM, "If we override the bandwidth, we can get to the SMTP capacitor through the cross"],
+      [:SEGEND, "~"],
+      [:SEGSTART, "N1"], [:ELEMSEP, "*"],
       [:ELEM, "01"], [:ELEMSEP, "*"],
-      [:ELEM, "20211230"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  AT8: [
-    [
-      [:SEGSTART, "AT8"], [:SEGEND, "~"]
-    ]
-  ],
-  AT5: [
-    [
-      [:SEGSTART, "AT5"], [:SEGEND, "~"]
-    ]
-  ],
-  N4: [
-    [
-      [:SEGSTART, "N4"], [:SEGEND, "~"]
-    ]
-  ],
-  G61: [
-    [
+      [:ELEM, "Yaakv Allen"],
+      [:SEGEND, "~"],
+      [:SEGSTART, "N3"], [:ELEMSEP, "*"],
+      [:ELEM, "907 Torphy Fords"],
+      [:SEGEND, "~"],
+      [:SEGSTART, "N4"],
+      [:SEGEND, "~"],
       [:SEGSTART, "G61"], [:ELEMSEP, "*"],
       [:ELEM, "1A"], [:ELEMSEP, "*"],
       [:ELEM, "Hiroko Shimizu"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  OID: [
-    [
+      [:SEGEND, "~"],
       [:SEGSTART, "OID"], [:ELEMSEP, "*"],
       [:ELEM, "333591"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  SE: [
-    [
+      [:SEGEND, "~"],
+      [:SEGSTART, "G62"], [:ELEMSEP, "*"],
+      [:ELEM, "01"], [:ELEMSEP, "*"],
+      [:ELEM, "20211230"],
+      [:SEGEND, "~"],
       [:SEGSTART, "SE"], [:ELEMSEP, "*"],
       [:ELEM, "10"], [:ELEMSEP, "*"],
       [:ELEM, "604150077"],
-      [:SEGEND, "~"]
-    ]
-  ],
-  IEA: [
-    [
+      [:SEGEND, "~"],
+      [:SEGSTART, "GE"],
+      [:ELEMSEP, "*"],
+      [:ELEM, "10"],
+      [:ELEMSEP, "*"],
+      [:ELEM, "598951"],
+      [:SEGEND, "~"],
       [:SEGSTART, "IEA"], [:ELEMSEP, "*"],
       [:ELEM, "1"], [:ELEMSEP, "*"],
       [:ELEM, "000952061"],
