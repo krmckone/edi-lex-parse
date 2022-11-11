@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "edi/version"
+require_relative "edir/lexer"
+require_relative "edir/version"
 
 module Edir
   class Error < StandardError; end

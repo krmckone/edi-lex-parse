@@ -1,4 +1,6 @@
-require 'lex'
+# frozen_string_literal: true
+
+require "lex"
 
 module Edir
   # Top level API class for providing EDI lexing
@@ -41,10 +43,10 @@ module Edir
 
     rule(:inelement_ELEMSEP, /\*|\|/)
 
-    # Right now we match all whitespace elements without stripping. It
-    # would be good to know how to trip whitespace without entering
-    # an infinite loop in lexing the rest.
-    rule(:inelement_ELEM, /[\w\s\-\\(\\).,!:@>^]+/)
+    rule(:inelement_ELEM, /[\w\s\-().,!:@>^]+/) do |_lexer, token|
+      token.value = token.value.strip
+      token
+    end
 
     rule(:inelement_SEGEND, /~|\n/) do |lexer, token|
       lexer.pop_state
@@ -53,11 +55,25 @@ module Edir
     end
 
     ignore "\n"
-    ignore :insegment, "\n"
-    ignore :inelement, "\n"
+    ignore :insegment, "\s"
+    ignore :inelement, "\s"
+
+    error :insegment do |lexer, token|
+      error_handler(lexer, token)
+    end
+
+    error :inelement do |_lexer, token|
+      error_handler(lexer, token)
+    end
 
     def lex_str(str)
       lex(str).map { |o| [o.name, o.value] }
+    end
+
+    private
+
+    def error_handler(_lexer, token)
+      puts "Illegal character #{token.value}"
     end
   end
 end
