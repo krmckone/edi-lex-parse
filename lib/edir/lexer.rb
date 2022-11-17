@@ -67,6 +67,9 @@ module Edir
     end
 
     def lex_str(str)
+      # NOTE: Need to decide if this is really what we want to do here.
+      # Do the token objects contain any more useful information we
+      # should be passing on?
       lex(str).map { |o| [o.name, o.value] }
     end
 
