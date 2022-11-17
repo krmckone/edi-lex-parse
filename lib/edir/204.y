@@ -1,8 +1,9 @@
 class EdirParser
   rule
-    segment : SEGSTART elem SEGEND { puts "1 #{val}" }
-    elem : ELEMSEP elem { puts "2 #{val}" }
-         | ELEM { puts "3 #{val}" }
+    file : SEGSTART elem SEGEND { puts "1: #{result}" }
+    elem : ELEMSEP elem { puts "2: #{result}" }
+    | ELEM elem { puts "3: #{result}" }
+    | ELEM { puts "4: #{result}" }
 end
 
 ---- header

@@ -10,7 +10,7 @@ require './lexer'
 
 class EdirParser < Racc::Parser
 
-module_eval(<<'...end 204.y/module_eval...', '204.y', 12)
+module_eval(<<'...end 204.y/module_eval...', '204.y', 13)
 def parse(str)
   @q = Edir::Lexer.new.lex_str(str)
   do_parse
@@ -23,22 +23,24 @@ end
 ##### State transition tables begin ###
 
 racc_action_table = [
-     5,     6,     5,     6,     2,     3,     7,     8 ]
+     5,     6,     5,     6,     5,     6,     2,     3,     7,     8 ]
 
 racc_action_check = [
-     2,     2,     5,     5,     0,     1,     3,     4 ]
+     2,     2,     5,     5,     6,     6,     0,     1,     3,     4 ]
 
 racc_action_pointer = [
-     2,     5,    -4,     6,     4,    -2,   nil,   nil,   nil,   nil ]
+     4,     7,    -4,     8,     6,    -2,     0,   nil,   nil,   nil,
+   nil ]
 
 racc_action_default = [
-    -4,    -4,    -4,    -4,    -4,    -4,    -3,    10,    -1,    -2 ]
+    -5,    -5,    -5,    -5,    -5,    -5,    -4,    11,    -1,    -2,
+    -3 ]
 
 racc_goto_table = [
-     4,     1,   nil,     9 ]
+     4,     1,   nil,     9,    10 ]
 
 racc_goto_check = [
-     2,     1,   nil,     2 ]
+     2,     1,   nil,     2,     2 ]
 
 racc_goto_pointer = [
    nil,     1,    -2 ]
@@ -50,11 +52,12 @@ racc_reduce_table = [
   0, 0, :racc_error,
   3, 7, :_reduce_1,
   2, 8, :_reduce_2,
-  1, 8, :_reduce_3 ]
+  2, 8, :_reduce_3,
+  1, 8, :_reduce_4 ]
 
-racc_reduce_n = 4
+racc_reduce_n = 5
 
-racc_shift_n = 10
+racc_shift_n = 11
 
 racc_token_table = {
   false => 0,
@@ -92,7 +95,7 @@ Racc_token_to_s_table = [
   "ELEMSEP",
   "ELEM",
   "$start",
-  "segment",
+  "file",
   "elem" ]
 
 Racc_debug_parser = true
@@ -103,21 +106,28 @@ Racc_debug_parser = true
 
 module_eval(<<'.,.,', '204.y', 2)
   def _reduce_1(val, _values, result)
-     puts "1 #{val}"
+     puts "1: #{result}"
     result
   end
 .,.,
 
 module_eval(<<'.,.,', '204.y', 3)
   def _reduce_2(val, _values, result)
-     puts "2 #{val}"
+     puts "2: #{result}"
     result
   end
 .,.,
 
 module_eval(<<'.,.,', '204.y', 4)
   def _reduce_3(val, _values, result)
-     puts "3 #{val}"
+     puts "3: #{result}"
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', '204.y', 5)
+  def _reduce_4(val, _values, result)
+     puts "4: #{result}"
     result
   end
 .,.,
