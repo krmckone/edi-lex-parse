@@ -43,7 +43,7 @@ module Edir
 
     rule(:inelement_ELEMSEP, /\*|\|/)
 
-    rule(:inelement_ELEM, /[\w\s\-().,!:@>^]+/) do |_lexer, token|
+    rule(:inelement_ELEM, /[\w\s\-().,!:@>'^]+/) do |_lexer, token|
       token.value = token.value.strip
       token
     end
@@ -62,7 +62,7 @@ module Edir
       error_handler(lexer, token)
     end
 
-    error :inelement do |_lexer, token|
+    error :inelement do |lexer, token|
       error_handler(lexer, token)
     end
 
@@ -70,10 +70,12 @@ module Edir
       lex(str).map { |o| [o.name, o.value] }
     end
 
-    private
+    class << self
+      private
 
-    def error_handler(_lexer, token)
-      puts "Illegal character #{token.value}"
+      def error_handler(_lexer, token)
+        puts "Illegal character #{token.value}"
+      end
     end
   end
 end
