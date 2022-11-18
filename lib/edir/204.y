@@ -1,13 +1,28 @@
 class EdirParser
   rule
-    file : SEGSTART elem SEGEND { puts "1: #{result}" }
-    elem : ELEMSEP elem { puts "2: #{result}" }
-    | ELEM elem { puts "3: #{result}" }
-    | ELEM { puts "4: #{result}" }
+    file : SEGSTART segment { push_parsed(result) }
+    segment : elem SEGEND { push_parsed(result) }
+    elem : ELEMSEP elem { push_parsed(result) }
+    | ELEM elem { push_parsed(result) }
+    | ELEM { push_parsed(result) }
 end
 
 ---- header
 require './lexer'
+
+class EdirParser
+  attr_reader :parsed
+  def initialize
+    @position = 0
+    @parsed = []
+    @yydebug = true
+  end
+
+  def push_parsed(result)
+    @parsed.push({ result: result, position: @position })
+    @position += 1
+  end
+end
 
 ---- inner
 def parse(str)
