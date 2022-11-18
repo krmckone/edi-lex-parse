@@ -1,26 +1,21 @@
 class EdirParser
+  token SEGSTART SEGEND ELEMSEP ELEM
+  # local variables that racc provides in the environment of action:
+  # * val is the right hand side
+  # * result is the left hand side
   rule
-    file : SEGSTART segment { push_parsed(result) }
-    segment : elem SEGEND { push_parsed(result) }
-    elem : ELEMSEP elem { push_parsed(result) }
-    | ELEM elem { push_parsed(result) }
-    | ELEM { push_parsed(result) }
+    segment : SEGSTART elems SEGEND { return { segstart: val[0], segend: val[2], elems: val[1] } }
+    elems   : ELEMSEP elems { return { elemsep: val[0], elems: val[1] } }
+            | ELEM elems { return { elemsep: val[0], elems: val[1] } }
+            | ELEM { return { elem: val[0] } }
 end
 
 ---- header
 require './lexer'
 
 class EdirParser
-  attr_reader :parsed
-  def initialize
-    @position = 0
-    @parsed = []
-    @yydebug = true
-  end
-
-  def push_parsed(result)
-    @parsed.push({ result: result, position: @position })
-    @position += 1
+  def initialize(debug: false)
+    @yydebug = debug
   end
 end
 
