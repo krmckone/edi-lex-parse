@@ -8,15 +8,18 @@ require 'racc/parser.rb'
 
 require './lexer'
 
-class EdirParser
-  def initialize
-    @yydebug = true
+module Edir
+  class Parser < Racc::Parser
+    def initialize(debug: false)
+      @yydebug = debug
+    end
   end
 end
 
-class EdirParser < Racc::Parser
+module Edir
+  class Parser < Racc::Parser
 
-module_eval(<<'...end 204.y/module_eval...', '204.y', 23)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 31)
 def parse(str)
   @q = Edir::Lexer.new.lex_str(str)
   do_parse
@@ -25,45 +28,50 @@ end
 def next_token
   @q.shift
 end
-...end 204.y/module_eval...
+...end parser.y/module_eval...
 ##### State transition tables begin ###
 
 racc_action_table = [
-    10,     5,     6,     5,     6,     5,     6,     2,     3,     7 ]
+     7,     8,     9,     8,     9,     8,     9,     3,     4,     3,
+    10,    11 ]
 
 racc_action_check = [
-     6,     6,     6,     2,     2,     5,     5,     0,     1,     3 ]
+     3,     3,     3,     8,     8,     9,     9,     0,     1,     2,
+     4,     6 ]
 
 racc_action_pointer = [
-     5,     8,    -1,     9,   nil,     1,    -3,   nil,   nil,   nil,
-   nil ]
+     5,     8,     7,    -3,    10,   nil,     8,   nil,    -1,     1,
+   nil,   nil,   nil,   nil ]
 
 racc_action_default = [
-    -5,    -5,    -5,    -5,    -1,    -5,    -5,    11,    -2,    -3,
-    -4 ]
+    -8,    -8,    -2,    -8,    -8,    -1,    -8,    -4,    -8,    -7,
+    14,    -3,    -5,    -6 ]
 
 racc_goto_table = [
-     4,     1,   nil,     8,     9 ]
+     6,     1,   nil,     5,   nil,    12,    13 ]
 
 racc_goto_check = [
-     2,     1,   nil,     2,     2 ]
+     3,     1,   nil,     1,   nil,     3,     3 ]
 
 racc_goto_pointer = [
-   nil,     1,    -2 ]
+   nil,     1,   nil,    -3 ]
 
 racc_goto_default = [
-   nil,   nil,   nil ]
+   nil,   nil,     2,   nil ]
 
 racc_reduce_table = [
   0, 0, :racc_error,
   2, 7, :_reduce_1,
-  2, 8, :_reduce_2,
-  2, 8, :_reduce_3,
-  2, 8, :_reduce_4 ]
+  1, 7, :_reduce_2,
+  3, 8, :_reduce_3,
+  2, 8, :_reduce_4,
+  2, 9, :_reduce_5,
+  2, 9, :_reduce_6,
+  1, 9, :_reduce_7 ]
 
-racc_reduce_n = 5
+racc_reduce_n = 8
 
-racc_shift_n = 11
+racc_shift_n = 14
 
 racc_token_table = {
   false => 0,
@@ -101,6 +109,7 @@ Racc_token_to_s_table = [
   "ELEMSEP",
   "ELEM",
   "$start",
+  "segments",
   "segment",
   "elems" ]
 
@@ -110,30 +119,51 @@ Racc_debug_parser = true
 
 # reduce 0 omitted
 
-module_eval(<<'.,.,', '204.y', 6)
+module_eval(<<'.,.,', 'parser.y', 9)
   def _reduce_1(val, _values, result)
-     return { segstart: val[0], elems: val[1] }
+     return [val[0]] + val[1] + ['lol']
     result
   end
 .,.,
 
-module_eval(<<'.,.,', '204.y', 7)
+module_eval(<<'.,.,', 'parser.y', 10)
   def _reduce_2(val, _values, result)
-     return { elemsep: val[0], elems: val[1] }
+     return val
     result
   end
 .,.,
 
-module_eval(<<'.,.,', '204.y', 8)
+module_eval(<<'.,.,', 'parser.y', 11)
   def _reduce_3(val, _values, result)
-     return { elemsep: val[0], elems: val[1] }
+     return [val[0]] + val[1] + [val[2]]
     result
   end
 .,.,
 
-module_eval(<<'.,.,', '204.y', 9)
+module_eval(<<'.,.,', 'parser.y', 12)
   def _reduce_4(val, _values, result)
-     return { elem: val[0], segend: val[1] }
+     return val
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.y', 13)
+  def _reduce_5(val, _values, result)
+     return [val[0]] + val[1]
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.y', 14)
+  def _reduce_6(val, _values, result)
+     return [val[0]] + val[1]
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.y', 15)
+  def _reduce_7(val, _values, result)
+     return val
     result
   end
 .,.,
@@ -142,4 +172,5 @@ def _reduce_none(val, _values, result)
   val[0]
 end
 
-end   # class EdirParser
+  end   # class Parser
+end   # module Edir

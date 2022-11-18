@@ -13,9 +13,9 @@ task default: %i[spec rubocop]
 
 desc "Generate Parser"
 task :parser do
-  `racc lib/edir/204.y -o lib/edir/parser.rb`
+  `racc lib/edir/parser.y -o lib/edir/parser.rb`
 end
 
 task :parser_debug do
-  `racc -g lib/edir/204.y -o lib/edir/parser.rb`
+  `racc -g lib/edir/parser.y -o lib/edir/parser.rb`
 end
