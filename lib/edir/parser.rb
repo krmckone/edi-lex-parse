@@ -8,18 +8,39 @@ require 'racc/parser.rb'
 
 require './lexer'
 
-module Edir
-  class Parser < Racc::Parser
-    def initialize(debug: false)
-      @yydebug = debug
+class Edir::Segment
+  def initialize(data)
+    @raw_data = data
+
+    @segment_name = data.first
+    @elements = []
+    position = 1
+    separators = 0
+    @raw_data[1..].each do |element|
+      if element == "*"
+        separators += 1
+        if separators % 2 == 0
+          position += 1
+        end
+      else
+        @elements.push([element, position])
+      end
     end
   end
+
+  # def inspect
+  #   @raw_data
+  # end
 end
 
 module Edir
   class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 31)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 48)
+def initialize(debug: false)
+  @yydebug = debug
+end
+
 def parse(str)
   @q = Edir::Lexer.new.lex_str(str)
   do_parse
@@ -27,6 +48,10 @@ end
 
 def next_token
   @q.shift
+end
+
+def build_segment(data)
+  Edir::Segment.new(data)
 end
 ...end parser.y/module_eval...
 ##### State transition tables begin ###
@@ -121,7 +146,7 @@ Racc_debug_parser = true
 
 module_eval(<<'.,.,', 'parser.y', 9)
   def _reduce_1(val, _values, result)
-     return [val[0]] + val[1] + ['lol']
+     return [val[0]] + val[1]
     result
   end
 .,.,
@@ -135,14 +160,14 @@ module_eval(<<'.,.,', 'parser.y', 10)
 
 module_eval(<<'.,.,', 'parser.y', 11)
   def _reduce_3(val, _values, result)
-     return [val[0]] + val[1] + [val[2]]
+     return build_segment([val[0]] + val[1] + [val[2]])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 12)
   def _reduce_4(val, _values, result)
-     return val
+     return build_segment(val)
     result
   end
 .,.,
