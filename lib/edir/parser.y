@@ -9,7 +9,7 @@ class Edir::Parser
   rule
     segments : segment segments { return [val[0]] + val[1] }
              | segment { return val }
-    segment  : SEGSTART elems SEGEND { return build_segment([val[0]] + val[1] + [val[2]]) }
+    segment  : SEGSTART elems SEGEND { return build_segment([val[0]] + val[1]) }
              | SEGSTART SEGEND { return build_segment(val) }
     elems    : ELEMSEP elems { return [val[0]] + val[1] }
              | ELEM elems { return [val[0]] + val[1] }
@@ -25,23 +25,17 @@ class Edir::Segment
 
     @segment_name = data.first
     @elements = []
-    position = 1
+    position = 0
     separators = 0
     @raw_data[1..].each do |element|
-      if element == "*"
+      if element == "*" # this must be configurable/dynamic
         separators += 1
-        if separators % 2 == 0
-          position += 1
-        end
+        position += 1
       else
         @elements.push([element, position])
       end
     end
   end
-
-  # def inspect
-  #   @raw_data
-  # end
 end
 
 ---- inner

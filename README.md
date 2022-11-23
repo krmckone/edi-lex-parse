@@ -1,15 +1,12 @@
-# Ruby::Edi
+# Edir
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ruby/edi`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
+This is a Gem for parsing files. Right now there's no configuration and offers essentially 1 feature: reading EDI and outputting it as formatted Ruby data.
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ruby-edi'
+gem 'edir'
 ```
 
 And then execute:
@@ -18,7 +15,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install ruby-edi
+    $ gem install edir
 
 ## Usage
 
@@ -32,7 +29,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ruby-edi.
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/edir.
 
 ## License
 

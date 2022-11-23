@@ -14,14 +14,12 @@ class Edir::Segment
 
     @segment_name = data.first
     @elements = []
-    position = 1
+    position = 0
     separators = 0
     @raw_data[1..].each do |element|
       if element == "*"
         separators += 1
-        if separators % 2 == 0
-          position += 1
-        end
+        position += 1
       else
         @elements.push([element, position])
       end
@@ -36,7 +34,7 @@ end
 module Edir
   class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 48)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 46)
 def initialize(debug: false)
   @yydebug = debug
 end
@@ -160,7 +158,7 @@ module_eval(<<'.,.,', 'parser.y', 10)
 
 module_eval(<<'.,.,', 'parser.y', 11)
   def _reduce_3(val, _values, result)
-     return build_segment([val[0]] + val[1] + [val[2]])
+     return build_segment([val[0]] + val[1])
     result
   end
 .,.,
