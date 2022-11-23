@@ -6,7 +6,7 @@
 
 require 'racc/parser.rb'
 
-require './lexer'
+require_relative 'lexer'
 
 class Edir::Segment
   def initialize(data)
@@ -17,7 +17,7 @@ class Edir::Segment
     position = 0
     separators = 0
     @raw_data[1..].each do |element|
-      if element == "*"
+      if element == "*" # this must be configurable/dynamic
         separators += 1
         position += 1
       else
@@ -25,16 +25,12 @@ class Edir::Segment
       end
     end
   end
-
-  # def inspect
-  #   @raw_data
-  # end
 end
 
 module Edir
   class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 46)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 42)
 def initialize(debug: false)
   @yydebug = debug
 end

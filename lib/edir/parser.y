@@ -17,7 +17,7 @@ class Edir::Parser
 end
 
 ---- header
-require './lexer'
+require_relative 'lexer'
 
 class Edir::Segment
   def initialize(data)
