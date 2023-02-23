@@ -70,15 +70,18 @@ module Edir
       # NOTE: Need to decide if this is really what we want to do here.
       # Do the token objects contain any more useful information we
       # should be passing on?
-      with_empty_elements = []
+      with_empty_elements_added = []
       tokens = lex(str).map { |o| [o.name, o.value] }
+      # TODO: There's got to be a better way to do this
+      # I just want to know if two adjacent tokens are :ELEMSEP so we can
+      # add back the empty element that isn't easily handled by the lexer
       tokens.each_with_index.map do |token, i|
-        with_empty_elements << token
+        with_empty_elements_added << token
         if token.first == :ELEMSEP && i + 1 < tokens.length && tokens[i + 1].first == :ELEMSEP
-          with_empty_elements << [:ELEM, ""]
+          with_empty_elements_added << [:ELEM, ""]
         end
       end
-      with_empty_elements
+      with_empty_elements_added
     end
 
     class << self
