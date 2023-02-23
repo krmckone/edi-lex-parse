@@ -70,7 +70,15 @@ module Edir
       # NOTE: Need to decide if this is really what we want to do here.
       # Do the token objects contain any more useful information we
       # should be passing on?
-      lex(str).map { |o| [o.name, o.value] }
+      with_empty_elements = []
+      tokens = lex(str).map { |o| [o.name, o.value] }
+      tokens.each_with_index.map do |token, i|
+        with_empty_elements << token
+        if token.first == :ELEMSEP && i + 1 < tokens.length && tokens[i + 1].first == :ELEMSEP
+          with_empty_elements << [:ELEM, ""]
+        end
+      end
+      with_empty_elements
     end
 
     class << self

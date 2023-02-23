@@ -17,7 +17,7 @@ class Edir::Segment
     position = 0
     separators = 0
     @raw_data[1..].each do |element|
-      if element == "*" # this must be configurable/dynamic
+      if element =~ /[*|]/ # this must be configurable/dynamic
         separators += 1
         position += 1
       else

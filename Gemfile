@@ -15,4 +15,7 @@ gem "lex", "~> 0.1.0"
 
 gem "racc", "~> 1.6.0"
 
-gem "pry", group: :development
+group :test do
+  gem "pry"
+  gem "pry-nav"
+end
