@@ -8,13 +8,32 @@ require 'racc/parser.rb'
 
 require_relative 'lexer'
 
+class Edir::Interchange
+  def initialize(func_groups)
+    @func_groups = func_groups
+  end
+end
+
+class Edir::FunctionalGroup
+  def initialize(transac_sets)
+    @transac_sets = transac_sets
+  end
+end
+
+class Edir::TransactionSet
+  def initialize(segments)
+    @segments = segments
+  end
+end
+
 class Edir::Segment
   attr_reader :elements
+  attr_reader :name
 
   def initialize(data)
     @raw_data = data
 
-    @segment_name = data.first
+    @name = data.first
     @elements = []
     position = 0
     separators = 0
@@ -32,14 +51,15 @@ end
 module Edir
   class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 44)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 63)
 def initialize(debug: false)
   @yydebug = debug
 end
 
 def parse(str)
   @q = Edir::Lexer.new.lex_str(str)
-  do_parse
+  data = do_parse
+  convert(data)
 end
 
 def next_token
@@ -48,6 +68,36 @@ end
 
 def build_segment(data)
   Edir::Segment.new(data)
+end
+
+# For each transaction set start/end, create a unique transaction set object with
+# the corrsponding segments.
+# For each functional group start/end, create a unique functional group object with
+# the corresponding transaction sets.
+# For each interchange start/end, create a unique interchange object with the corresponding
+# functional groups
+def convert(data)
+  # We need to be able to handle an arbitrary number of start/ends for each logical
+  # grouping
+  transac_set_start = data.find_index do |segment|
+    segment.name == 'ST'
+  end
+  transac_set_end = data.find_index do |segment|
+    segment.name == 'SE'
+  end
+  func_group_start = data.find_index do |segment|
+    segment.name == 'GS'
+  end
+  func_group_end = data.find_index do |segment|
+    segment.name == 'GE'
+  end
+  inter_start = data.find_index do |segment|
+    segment.name == 'ISA'
+  end
+  inter_end = data.find_index do |segment|
+    segment.name == 'IEA'
+  end
+  data
 end
 ...end parser.y/module_eval...
 ##### State transition tables begin ###
@@ -142,49 +192,49 @@ Racc_debug_parser = false
 
 module_eval(<<'.,.,', 'parser.y', 9)
   def _reduce_1(val, _values, result)
-     return [val[0]] + val[1]
+     result = [val[0]] + val[1]
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 10)
   def _reduce_2(val, _values, result)
-     return val
+     result = val
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 11)
   def _reduce_3(val, _values, result)
-     return build_segment([val[0]] + val[1])
+     result = build_segment([val[0]] + val[1])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 12)
   def _reduce_4(val, _values, result)
-     return build_segment(val)
+     result = build_segment(val)
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 13)
   def _reduce_5(val, _values, result)
-     return [val[0]] + val[1]
+     result = [val[0]] + val[1]
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 14)
   def _reduce_6(val, _values, result)
-     return [val[0]] + val[1]
+     result = [val[0]] + val[1]
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 15)
   def _reduce_7(val, _values, result)
-     return val
+     result = val
     result
   end
 .,.,
