@@ -14,7 +14,7 @@ RSpec.describe Edir::Parser do
     data = File.read("#{base_path}/#{file}")
     it "parses correctly" do
       data = Edir::Parser.new.parse(data)
-      expect(datat.map(&:elements)).to eq([expected_data])
+      expect(data.map(&:elements)).to eq([expected_data])
     end
   end
 
