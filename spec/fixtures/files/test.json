@@ -165,7 +165,7 @@
                     {
                       "N3": {
                         "e00": "N3",
-                        "e01": "3010 GAYLORD PARKWAY",
+                        "e01": "3010 PARKWAY",
                         "e02": "SUITE 200"
                       }
                     },
@@ -186,7 +186,7 @@
                         "e01": "OC",
                         "e02": "Operations",
                         "e03": "TE",
-                        "e04": "972-731-4500",
+                        "e04": "000-000-4500",
                         "e05": ""
                       }
                     },
@@ -208,7 +208,7 @@
                       "N1": {
                         "e00": "N1",
                         "e01": "BT",
-                        "e02": "Uber Freight US LLC",
+                        "e02": "Freight US LLC",
                         "e03": "ZZ",
                         "e04": "ZZ",
                         "e05": "",
@@ -218,7 +218,7 @@
                     {
                       "N3": {
                         "e00": "N3",
-                        "e01": "PO Box 425",
+                        "e01": "PO Box Number",
                         "e02": ""
                       }
                     },
@@ -241,7 +241,7 @@
                       "N1": {
                         "e00": "N1",
                         "e01": "BN",
-                        "e02": "TEST FREIGHT",
+                        "e02": "FREIGHT COMPANY",
                         "e03": "",
                         "e04": "",
                         "e05": "",
@@ -391,7 +391,7 @@
                             "e01": "SH",
                             "e02": "UNKNOWN",
                             "e03": "TE",
-                            "e04": "734-422-5700",
+                            "e04": "000-000-5700",
                             "e05": ""
                           }
                         },
@@ -401,7 +401,7 @@
                             "e01": "SH",
                             "e02": "UNKNOWN",
                             "e03": "EM",
-                            "e04": "store4612@americanfreight.us,ldavis2@americanfreight.us",
+                            "e04": "store@freightcompany.us,l@freightcompany.us",
                             "e05": ""
                           }
                         }
@@ -525,7 +525,7 @@
                           "N1": {
                             "e00": "N1",
                             "e01": "CN",
-                            "e02": "DAYTON - TEST FREIGHT",
+                            "e02": "DAYTON - FREIGHT COMPANY",
                             "e03": "93",
                             "e04": "00054",
                             "e05": "",
@@ -556,7 +556,7 @@
                             "e01": "DC",
                             "e02": "UNKNOWN",
                             "e03": "TE",
-                            "e04": "937-643-0000",
+                            "e04": "000-000-0000",
                             "e05": ""
                           }
                         },
@@ -566,7 +566,7 @@
                             "e01": "DC",
                             "e02": "UNKNOWN",
                             "e03": "EM",
-                            "e04": "store54@americanfreight.us",
+                            "e04": "store@freightcompany.us",
                             "e05": ""
                           }
                         }
@@ -832,7 +832,7 @@
                     {
                       "N3": {
                         "e00": "N3",
-                        "e01": "3010 GAYLORD PARKWAY",
+                        "e01": "3010 PARKWAY",
                         "e02": "SUITE 200"
                       }
                     },
@@ -853,7 +853,7 @@
                         "e01": "OC",
                         "e02": "Operations",
                         "e03": "TE",
-                        "e04": "972-731-4500",
+                        "e04": "000-001-4500",
                         "e05": ""
                       }
                     },
@@ -875,7 +875,7 @@
                       "N1": {
                         "e00": "N1",
                         "e01": "BT",
-                        "e02": "Uber Freight US LLC",
+                        "e02": "Freight US LLC",
                         "e03": "ZZ",
                         "e04": "ZZ",
                         "e05": "",
@@ -908,7 +908,7 @@
                       "N1": {
                         "e00": "N1",
                         "e01": "BN",
-                        "e02": "TEST FREIGHT",
+                        "e02": "FREIGHT COMPANY",
                         "e03": "",
                         "e04": "",
                         "e05": "",
@@ -1037,7 +1037,7 @@
                         {
                           "N3": {
                             "e00": "N3",
-                            "e01": "12001 SEARS ST",
+                            "e01": "12001 STORE ST",
                             "e02": ""
                           }
                         },
@@ -1058,7 +1058,7 @@
                             "e01": "SH",
                             "e02": "UNKNOWN",
                             "e03": "TE",
-                            "e04": "734-422-5700",
+                            "e04": "000-000-5700",
                             "e05": ""
                           }
                         },
@@ -1068,7 +1068,7 @@
                             "e01": "SH",
                             "e02": "UNKNOWN",
                             "e03": "EM",
-                            "e04": "store4612@americanfreight.us,ldavis2@americanfreight.us",
+                            "e04": "store@freightcompany.us,l@freightcompany.us",
                             "e05": ""
                           }
                         }
@@ -1185,7 +1185,7 @@
                           "N1": {
                             "e00": "N1",
                             "e01": "CN",
-                            "e02": "CINCINNATI - MULHAUSER RD - TEST FREIGHT",
+                            "e02": "CINCINNATI - ADDRESS 0 RD - FREIGHT COMPANY",
                             "e03": "93",
                             "e04": "00009",
                             "e05": "",
@@ -1195,14 +1195,14 @@
                         {
                           "N3": {
                             "e00": "N3",
-                            "e01": "4782 MUHLHAUSER RD",
+                            "e01": "4782 MUHLHAUSER TOWN RD",
                             "e02": ""
                           }
                         },
                         {
                           "N4": {
                             "e00": "N4",
-                            "e01": "WEST CHESTER",
+                            "e01": "NORTH CHESTER",
                             "e02": "OH",
                             "e03": "45011",
                             "e04": "USA",
@@ -1216,7 +1216,7 @@
                             "e01": "DC",
                             "e02": "UNKNOWN",
                             "e03": "TE",
-                            "e04": "513-399-8222",
+                            "e04": "000-000-8222",
                             "e05": ""
                           }
                         },
@@ -1226,7 +1226,7 @@
                             "e01": "DC",
                             "e02": "UNKNOWN",
                             "e03": "EM",
-                            "e04": "store9@americanfreight.us",
+                            "e04": "store@freightcompany.us",
                             "e05": ""
                           }
                         }
