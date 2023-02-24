@@ -1,8 +1,9 @@
 AllCops:
+  NewCops: enable
   TargetRubyVersion: 2.6
   Exclude:
-    - 'lib/edir/204.tab.rb'
-    - 'lib/edir/204.y'
+    - 'lib/edir/parser.rb'
+    - 'lib/edir/parser.y'
     - 'vendor/**/*'
 
 Style/StringLiterals:

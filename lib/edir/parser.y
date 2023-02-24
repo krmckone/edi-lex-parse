@@ -20,6 +20,8 @@ end
 require_relative 'lexer'
 
 class Edir::Segment
+  attr_reader :elements
+
   def initialize(data)
     @raw_data = data
 

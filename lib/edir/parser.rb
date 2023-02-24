@@ -9,6 +9,8 @@ require 'racc/parser.rb'
 require_relative 'lexer'
 
 class Edir::Segment
+  attr_reader :elements
+
   def initialize(data)
     @raw_data = data
 
@@ -17,7 +19,7 @@ class Edir::Segment
     position = 0
     separators = 0
     @raw_data[1..].each do |element|
-      if element =~ /[*|]/ # this must be configurable/dynamic
+      if element =~ /[*|]/
         separators += 1
         position += 1
       else
@@ -30,7 +32,7 @@ end
 module Edir
   class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 42)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 44)
 def initialize(debug: false)
   @yydebug = debug
 end
@@ -132,7 +134,7 @@ Racc_token_to_s_table = [
   "segment",
   "elems" ]
 
-Racc_debug_parser = true
+Racc_debug_parser = false
 
 ##### State transition tables end #####
 
