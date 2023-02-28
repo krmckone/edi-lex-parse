@@ -129,3 +129,9 @@ LEXER_FILE_EXAMPLES = {
     ]
   ]
 }.freeze
+
+PARSER_FILE_EXAMPLES = {
+  "204": [
+    ['test']
+  ]
+}

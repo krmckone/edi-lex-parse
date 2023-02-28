@@ -4,8 +4,8 @@ require_relative "./fixtures/segments_data"
 require_relative "./fixtures/files_data"
 
 tests = {
-  segments: PARSER_SEGMENT_EXAMPLES
-  # files: PARSER_FILE_EXAMPLES
+  segments: PARSER_SEGMENT_EXAMPLES,
+  files: PARSER_FILE_EXAMPLES
 }
 
 RSpec.describe Edir::Parser do
@@ -14,7 +14,7 @@ RSpec.describe Edir::Parser do
     data = File.read("#{base_path}/#{file}")
     it "parses correctly" do
       data = Edir::Parser.new.parse(data)
-      expect(data.map(&:elements)).to eq([expected_data])
+      expect(data).to eq([expected_data])
     end
   end
 

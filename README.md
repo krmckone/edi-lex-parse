@@ -28,6 +28,11 @@ require 'edir'
 edi_data = Edir::Parser.new.parse(edi_string)
 ```
 
+### Example
+```ruby
+Edir::Parser.new.parse(File.read('spec/fixtures/files/204_example_1.txt'))
+```
+
 The lexer is implemented in pure ruby, so changes in `lexer.rb` are always current. However,
 the parser is converted from a racc/yacc specification to pure ruby. To rebuild the parser, run
 
