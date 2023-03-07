@@ -14,6 +14,10 @@ class Edir::Interchange
     @footer = footer
     @func_groups = func_groups
   end
+
+  def elements
+    @header.elements + @func_groups.map(&:elements) + @footer.elements
+  end
 end
 
 class Edir::FunctionalGroup
@@ -22,13 +26,23 @@ class Edir::FunctionalGroup
     @footer = footer
     @transac_sets = transac_sets
   end
+
+  def elements
+    @header.elements + @transac_sets.map(&:elements) + @footer.elements
+  end
 end
 
 class Edir::TransactionSet
+  attr_reader :segments
+
   def initialize(header:, footer:, segments:)
     @header = header
     @footer = footer
     @segments = segments
+  end
+
+  def elements
+    @header.elements + @segments.map(&:elements) + @footer.elements
   end
 end
 
@@ -38,6 +52,7 @@ class Edir::Segment
   attr_reader :raw_data
 
   def initialize(data)
+    puts "SEGMENT DATA: #{data}"
     @raw_data = data
 
     @name = data.first
@@ -56,7 +71,7 @@ end
 module Edir
   class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 68)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 83)
 def initialize(debug: false)
   @yydebug = debug
 end
@@ -64,15 +79,16 @@ end
 def parse(str)
   @q = Edir::Lexer.new.lex_str(str)
   data = do_parse
-  convert(data)
+  # Implicit segment vs document mode
+  if data.length > 1
+    convert_document(data)
+  else
+    data
+  end
 end
 
 def next_token
   @q.shift
-end
-
-def build_segment(data)
-  Edir::Segment.new(data)
 end
 
 # For each transaction set start/end, create a unique transaction set object with
@@ -81,11 +97,7 @@ end
 # the corresponding transaction sets.
 # For each interchange start/end, create a unique interchange object with the corresponding
 # functional groups.
-#
-# Probably want to do this from the top/bottom then outside in. I.e., while there's segments left,
-# find the next interchange. Within that interchange, while there's segments left,
-# determine the next functional group and so on
-def convert(segments)
+def convert_document(segments)
   interchanges = partition_by_seg_types(segments: segments, seg_start: "ISA", seg_end: "IEA")
   interchanges.map do |inter|
     converted_func_groups = []
@@ -239,14 +251,14 @@ module_eval(<<'.,.,', 'parser.y', 10)
 
 module_eval(<<'.,.,', 'parser.y', 11)
   def _reduce_3(val, _values, result)
-     result = build_segment([val[0]] + val[1])
+     result = Edir::Segment.new([val[0]] + val[1])
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 12)
   def _reduce_4(val, _values, result)
-     result = build_segment(val)
+     result = Edir::Segment.new([val[0]])
     result
   end
 .,.,

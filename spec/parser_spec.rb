@@ -14,7 +14,7 @@ RSpec.describe Edir::Parser do
     data = File.read("#{base_path}/#{file}")
     it "parses correctly" do
       data = Edir::Parser.new.parse(data)
-      expect(data).to eq([expected_data])
+      expect(data.map(&:elements)).to eq([expected_data])
     end
   end
 
@@ -28,6 +28,72 @@ RSpec.describe Edir::Parser do
           end
         end
       end
+    end
+  end
+
+  describe "#partition_by_seg_types" do 
+    let(:segments) do
+      [
+        double(name: "ISA"),
+        double(name: "GS"),
+        double(name: "ST"),
+        double(name: "ANY"),
+        double(name: "SE"),
+        double(name: "GE"),
+        double(name: "IEA"),
+        double(name: "ISA"),
+        double(name: "GS"),
+        double(name: "ST"),
+        double(name: "ANY"),
+        double(name: "SE"),
+        double(name: "GE"),
+        double(name: "IEA")
+      ]
+    end
+
+    it "partitions by segment type ISA/IEA as expected" do
+      expected = [
+        segments[0..6],
+        segments[7..]
+      ]
+
+      expect(
+        Edir::Parser.new.partition_by_seg_types(
+          segments: segments,
+          seg_start: "ISA",
+          seg_end: "IEA"
+        )
+      ).to eq(expected)
+    end
+
+    it "partitions by segment type GS/GE as expected" do
+      expected = [
+        segments[1..5],
+        segments[8..-2]
+      ]
+
+      expect(
+        Edir::Parser.new.partition_by_seg_types(
+          segments: segments[1..-2],
+          seg_start: "GS",
+          seg_end: "GE"
+        )
+      ).to eq(expected)
+    end
+
+    it "partitions by segment type ST/SE as expected" do
+      expected = [
+        segments[2..4],
+        segments[9..-3]
+      ]
+
+      expect(
+        Edir::Parser.new.partition_by_seg_types(
+          segments: segments[2..-3],
+          seg_start: "ST",
+          seg_end: "SE"
+        )
+      ).to eq(expected)
     end
   end
 end
