@@ -89,6 +89,10 @@ class Edir::Segment
       end
     end
   end
+
+  def get_element(position)
+    @elements.detect { |e| e[1] == position}
+  end
 end
 
 ---- inner

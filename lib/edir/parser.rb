@@ -78,12 +78,16 @@ class Edir::Segment
       end
     end
   end
+
+  def get_element(position)
+    @elements.detect { |e| e[1] == position}
+  end
 end
 
 module Edir
   class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 95)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 99)
 def initialize(debug: false)
   @yydebug = debug
 end
