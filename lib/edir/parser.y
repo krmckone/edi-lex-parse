@@ -26,8 +26,12 @@ class Edir::Interchange
     @func_groups = func_groups
   end
 
+  def segments
+    [@header] + @func_groups.map(&:segments).flatten + [@footer]
+  end
+
   def elements
-    @header.elements + @func_groups.map(&:elements) + @footer.elements
+    segments.map(&:elements)
   end
 end
 
@@ -38,22 +42,28 @@ class Edir::FunctionalGroup
     @transac_sets = transac_sets
   end
 
+  def segments
+    [@header] + @transac_sets.map(&:segments) + [@footer]
+  end
+
   def elements
-    @header.elements + @transac_sets.map(&:elements) + @footer.elements
+    segments.map(&:elements)
   end
 end
 
 class Edir::TransactionSet
-  attr_reader :segments
-
   def initialize(header:, footer:, segments:)
     @header = header
     @footer = footer
     @segments = segments
   end
 
+  def segments
+    [@header] + @segments + [@footer]
+  end
+
   def elements
-    @header.elements + @segments.map(&:elements) + @footer.elements
+    segments.map(&:elements)
   end
 end
 
@@ -116,7 +126,7 @@ def convert_document(segments)
         ts = Edir::TransactionSet.new(
           header: transac_set.first,
           footer: transac_set.last,
-          segments: transac_set[1..-1]
+          segments: transac_set[1..-2]
         )
         converted_transac_sets << ts
       end

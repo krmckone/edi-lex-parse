@@ -15,8 +15,13 @@ class Edir::Interchange
     @func_groups = func_groups
   end
 
+  def segments
+    x = [@header] + @func_groups.map(&:segments).flatten + [@footer]
+    pp x
+  end
+
   def elements
-    @header.elements + @func_groups.map(&:elements) + @footer.elements
+    segments.map(&:elements)
   end
 end
 
@@ -27,22 +32,28 @@ class Edir::FunctionalGroup
     @transac_sets = transac_sets
   end
 
+  def segments
+    [@header] + @transac_sets.map(&:segments) + [@footer]
+  end
+
   def elements
-    @header.elements + @transac_sets.map(&:elements) + @footer.elements
+    segments.map(&:elements)
   end
 end
 
 class Edir::TransactionSet
-  attr_reader :segments
-
   def initialize(header:, footer:, segments:)
     @header = header
     @footer = footer
     @segments = segments
   end
 
+  def segments
+    [@header] + @segments + [@footer]
+  end
+
   def elements
-    @header.elements + @segments.map(&:elements) + @footer.elements
+    segments.map(&:elements)
   end
 end
 
@@ -52,7 +63,6 @@ class Edir::Segment
   attr_reader :raw_data
 
   def initialize(data)
-    puts "SEGMENT DATA: #{data}"
     @raw_data = data
 
     @name = data.first
@@ -71,7 +81,7 @@ end
 module Edir
   class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 83)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 93)
 def initialize(debug: false)
   @yydebug = debug
 end
@@ -109,7 +119,7 @@ def convert_document(segments)
         ts = Edir::TransactionSet.new(
           header: transac_set.first,
           footer: transac_set.last,
-          segments: transac_set[1..-1]
+          segments: transac_set[1..-2]
         )
         converted_transac_sets << ts
       end
