@@ -253,4 +253,4 @@ PARSER_FILE_EXAMPLES = {
       ]
     ]
   ]
-}
+}.freeze

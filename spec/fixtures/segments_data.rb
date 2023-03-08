@@ -290,7 +290,7 @@ PARSER_SEGMENT_EXAMPLES = {
   PLD: [
     [
       ["10", 1]
-    ],
+    ]
   ],
   LH6: [
     []
@@ -320,7 +320,6 @@ PARSER_SEGMENT_EXAMPLES = {
       ["1338 Zboncak Center", 1]
     ],
     [
-
       ["907 Torphy Fords", 1]
     ]
   ],

@@ -32,7 +32,7 @@ RSpec.describe Edir::Parser do
     end
   end
 
-  describe "#partition_by_seg_types" do 
+  describe "#partition_by_seg_types" do
     let(:segments) do
       [
         double(name: "ISA"),
