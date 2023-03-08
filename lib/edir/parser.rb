@@ -9,6 +9,7 @@ require 'racc/parser.rb'
 require_relative 'lexer'
 
 class Edir::Interchange
+  attr_reader :func_groups
   def initialize(header:, footer:, func_groups:)
     @header = header
     @footer = footer
@@ -16,8 +17,7 @@ class Edir::Interchange
   end
 
   def segments
-    x = [@header] + @func_groups.map(&:segments).flatten + [@footer]
-    pp x
+    [@header] + @func_groups.map(&:segments).flatten + [@footer]
   end
 
   def elements
@@ -26,6 +26,8 @@ class Edir::Interchange
 end
 
 class Edir::FunctionalGroup
+  attr_reader :transac_sets
+
   def initialize(header:, footer:, transac_sets:)
     @header = header
     @footer = footer
@@ -81,7 +83,7 @@ end
 module Edir
   class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 93)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 95)
 def initialize(debug: false)
   @yydebug = debug
 end
@@ -110,33 +112,42 @@ end
 def convert_document(segments)
   interchanges = partition_by_seg_types(segments: segments, seg_start: "ISA", seg_end: "IEA")
   interchanges.map do |inter|
-    converted_func_groups = []
-    func_groups = partition_by_seg_types(segments: inter[1..-2], seg_start: "GS", seg_end: "GE")
-    func_groups.each do |func_group|
-      converted_transac_sets = []
-      transac_sets = partition_by_seg_types(segments: func_group[1..-2], seg_start: "ST", seg_end: "SE")
-      transac_sets.each do |transac_set|
-        ts = Edir::TransactionSet.new(
-          header: transac_set.first,
-          footer: transac_set.last,
-          segments: transac_set[1..-2]
-        )
-        converted_transac_sets << ts
-      end
-      fg = Edir::FunctionalGroup.new(
-        header: func_group.first,
-        footer: func_group.last,
-        transac_sets: converted_transac_sets
-      )
-      converted_func_groups << fg
-    end
-    inter = Edir::Interchange.new(
-      header: inter.first,
-      footer: inter.last,
-      func_groups: converted_func_groups
-    )
-    inter
+    convert_interchange(inter) 
   end
+end
+
+def convert_interchange(inter)
+  func_groups = partition_by_seg_types(segments: inter[1..-2], seg_start: "GS", seg_end: "GE")
+  converted_func_groups = func_groups.map do |func_group|
+    convert_functional_group(func_group) 
+  end
+
+  Edir::Interchange.new(
+    header: inter.first,
+    footer: inter.last,
+    func_groups: converted_func_groups
+  )
+end
+
+def convert_functional_group(func_group)
+  transac_sets = partition_by_seg_types(segments: func_group[1..-2], seg_start: "ST", seg_end: "SE")
+  converted_transac_sets = transac_sets.map do |transac_set|
+    convert_transaction_set(transac_set)    
+  end
+
+  Edir::FunctionalGroup.new(
+    header: func_group.first,
+    footer: func_group.last,
+    transac_sets: converted_transac_sets
+  )
+end
+
+def convert_transaction_set(transac_set)
+  Edir::TransactionSet.new(
+    header: transac_set.first,
+    footer: transac_set.last,
+    segments: transac_set[1..-2]
+  )
 end
 
 def partition_by_seg_types(segments:, seg_start:, seg_end:)
