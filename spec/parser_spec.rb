@@ -39,7 +39,7 @@ RSpec.describe Edir::Parser do
     ].map { |name| Edir::Segment.new([name]) }
   end
 
-  describe "#convert_document" do 
+  describe "#convert_document" do
     it "takes segments describing a document and outputs the document object with interchanges" do
       document = Edir::Parser.new.convert_document(segments)
       expect(document.length).to eq(2)
