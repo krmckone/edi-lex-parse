@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require_relative "interchange"
+require_relative "functional_group"
+require_relative "transaction_set"
+require_relative "segment"
+
 module Edir
   # Converter methods for parsed EDI
   module Convert

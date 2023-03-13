@@ -18,6 +18,7 @@ module Edir
 
 module_eval(<<'...end parser.y/module_eval...', 'parser.y', 28)
 include Edir::Convert
+
 def initialize(debug: false)
   @yydebug = debug
 end

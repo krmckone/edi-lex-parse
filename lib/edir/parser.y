@@ -18,10 +18,6 @@ end
 
 ---- header
 require_relative 'lexer'
-require_relative 'interchange'
-require_relative 'functional_group'
-require_relative 'transaction_set'
-require_relative 'segment'
 require_relative 'convert'
 
 ---- inner
