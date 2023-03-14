@@ -7,16 +7,12 @@
 require 'racc/parser.rb'
 
 require_relative 'lexer'
-require_relative 'interchange'
-require_relative 'functional_group'
-require_relative 'transaction_set'
-require_relative 'segment'
 require_relative 'convert'
 
 module Edir
   class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 28)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 24)
 include Edir::Convert
 
 def initialize(debug: false)
