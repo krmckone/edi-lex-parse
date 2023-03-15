@@ -3,6 +3,8 @@
 module Edir
   # Data class for documents
   class Document
+    attr_reader :interchanges
+
     def initialize(interchanges:)
       @interchanges = interchanges
     end
