@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+require_relative "document"
+require_relative "interchange"
+require_relative "functional_group"
+require_relative "transaction_set"
+require_relative "segment"
+
 module Edir
   # Converter methods for parsed EDI
   module Convert
@@ -11,9 +17,11 @@ module Edir
     # functional groups.
     def convert_document(segments)
       interchanges = partition_by_seg_types(segments: segments, seg_start: "ISA", seg_end: "IEA")
-      interchanges.map do |inter|
+      converted_interchanges = interchanges.map do |inter|
         convert_interchange(inter)
       end
+
+      Edir::Document.new(interchanges: converted_interchanges)
     end
 
     def convert_interchange(inter)

@@ -14,6 +14,7 @@ RSpec.describe Edir::Parser do
     data = File.read("#{base_path}/#{file}")
     it "parses correctly" do
       data = Edir::Parser.new.parse(data)
+      data = data.interchanges if data.is_a? Edir::Document
       # Flatten the first level beacuse we're using map here
       expect(data.map(&:elements).flatten(1)).to eq(expected_data)
     end
@@ -42,8 +43,8 @@ RSpec.describe Edir::Parser do
   describe "#convert_document" do
     it "takes segments describing a document and outputs the document object with interchanges" do
       document = Edir::Parser.new.convert_document(segments)
-      expect(document.length).to eq(2)
-      document.each do |interchange|
+      expect(document.interchanges.length).to eq(2)
+      document.interchanges.each do |interchange|
         expect(interchange).to be_a(Edir::Interchange)
         expect(interchange.segments.first.name).to eq("ISA")
         expect(interchange.segments.last.name).to eq("IEA")

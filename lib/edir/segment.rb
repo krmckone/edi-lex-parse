@@ -30,5 +30,11 @@ module Edir
     def separator?(element)
       element =~ /[*|]/
     end
+
+    def to_h
+      {
+        @name => @elements.to_h { |e| ["e#{e.last.to_s.rjust(2, "0")}", e.first] }
+      }
+    end
   end
 end

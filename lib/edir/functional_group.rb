@@ -18,5 +18,13 @@ module Edir
     def elements
       segments.map(&:elements)
     end
+
+    def to_h
+      @header.to_h.merge(
+        {
+          "transaction_sets" => @transac_sets.map(&:to_h).flatten
+        }
+      ).merge(@footer.to_h)
+    end
   end
 end
