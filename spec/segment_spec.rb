@@ -3,16 +3,7 @@
 RSpec.describe Edir::Segment do
   describe "#to_h" do
     it "returns the segment in the expected hash representation" do
-      elements = [
-        "B2", "*",
-        "", "*",
-        "SCAC", "*",
-        "", "*",
-        "124592j3", "*",
-        "", "*",
-        "CC"
-      ]
-      segment = Edir::Segment.new(elements)
+      segment = Edir::Segment.new(SEGMENTS.first)
       expected = {
         "B2" => {
           "e01" => "",
