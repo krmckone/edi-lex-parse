@@ -1,6 +1,6 @@
 # Edir
 
-This is a Gem for parsing files. Right now there's no configuration and offers essentially 1 feature: reading EDI and outputting it as formatted Ruby data.
+This is a Gem for parsing EDI files. Right now there's no configuration and offers essentially 1 feature: reading EDI and outputting it as formatted Ruby data or JSON.
 
 ## Installation
 
@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-Right now there's not a lot to it. Use the parser like so:
+There's not a lot to it. Use the parser like so:
 
 ```ruby
 require 'edir'
@@ -30,7 +30,8 @@ edi_data = Edir::Parser.new.parse(edi_string)
 
 ### Example
 ```ruby
-Edir::Parser.new.parse(File.read('spec/fixtures/files/204_example_1.txt'))
+parsed = Edir::Parser.new.parse(File.read('spec/fixtures/files/204_example_1.txt'))
+parsed.to_h # or .to_json
 ```
 
 The lexer is implemented in pure ruby, so changes in `lexer.rb` are always current. However,
