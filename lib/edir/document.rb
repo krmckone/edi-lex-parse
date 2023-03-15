@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "json"
+
 module Edir
   # Data class for documents
   class Document
@@ -21,6 +23,10 @@ module Edir
       {
         "interchanges" => @interchanges.map(&:to_h).flatten
       }
+    end
+
+    def to_json(*)
+      to_h.to_json
     end
   end
 end
