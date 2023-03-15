@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "document"
 require_relative "interchange"
 require_relative "functional_group"
 require_relative "transaction_set"

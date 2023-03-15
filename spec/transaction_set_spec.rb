@@ -3,37 +3,7 @@
 RSpec.describe Edir::TransactionSet do
   describe "#to_h" do
     it "returns the transaction set in the expected hash representation" do
-      header = Edir::Segment.new(
-        [
-          "ST", "*",
-          "204", "*",
-          "79902"
-        ]
-      )
-      footer = Edir::Segment.new(
-        [
-          "SE", "*",
-          "925", "*",
-          "79902"
-        ]
-      )
-      segments = [
-        [
-          "B2", "*",
-          "", "*",
-          "SCAC", "*",
-          "", "*",
-          "124592j3", "*",
-          "", "*",
-          "CC"
-        ],
-        [
-          "B2A", "*",
-          "00", "*",
-          "LT"
-        ]
-      ].map { |e| Edir::Segment.new(e) }
-      transaction_set = Edir::TransactionSet.new(header: header, footer: footer, segments: segments)
+      transaction_set = build_transac_set
       expected = [
         {
           "ST" => {
@@ -64,7 +34,6 @@ RSpec.describe Edir::TransactionSet do
           }
         }
       ]
-      pp transaction_set.segments
       expect(transaction_set.to_h).to eq(expected)
     end
   end

@@ -1,68 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe Edir::FunctionalGroup do
-  def build_func_group
-    header = Edir::Segment.new(
-      [
-        "GS", "*",
-        "SM", "*",
-        "SHIPPER", "*",
-        "SCAC", "*",
-        "20230309", "*",
-        "1620", "*",
-        "80", "*",
-        "X", "*",
-        "004010"
-      ]
-    )
-    footer = Edir::Segment.new(
-      [
-        "GE", "*",
-        "1", "*",
-        "80"
-      ]
-    )
-    Edir::FunctionalGroup.new(
-      header: header,
-      footer: footer,
-      transac_sets: [build_transac_set]
-    )
-  end
-
-  def build_transac_set
-    header = Edir::Segment.new(
-      [
-        "ST", "*",
-        "204", "*",
-        "79902"
-      ]
-    )
-    footer = Edir::Segment.new(
-      [
-        "SE", "*",
-        "925", "*",
-        "79902"
-      ]
-    )
-    segments = [
-      [
-        "B2", "*",
-        "", "*",
-        "SCAC", "*",
-        "", "*",
-        "124592j3", "*",
-        "", "*",
-        "CC"
-      ],
-      [
-        "B2A", "*",
-        "00", "*",
-        "LT"
-      ]
-    ].map { |e| Edir::Segment.new(e) }
-    Edir::TransactionSet.new(header: header, footer: footer, segments: segments)
-  end
-
   describe "#to_h" do
     it "returns the functional group in the expected hash representation" do
       func_group = build_func_group
