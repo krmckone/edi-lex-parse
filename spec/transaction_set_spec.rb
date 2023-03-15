@@ -3,59 +3,68 @@
 RSpec.describe Edir::TransactionSet do
   describe "#to_h" do
     it "returns the transaction set in the expected hash representation" do
+      header = Edir::Segment.new(
+        [
+          "ST", "*",
+          "204", "*",
+          "79902"
+        ]
+      )
+      footer = Edir::Segment.new(
+        [
+          "SE", "*",
+          "925", "*",
+          "79902"
+        ]
+      )
       segments = [
         [
-          "ISA", "*",
-          "00", "*",
-          "00", "*",
+          "B2", "*",
           "", "*",
-          "09", "*",
-          "005070479ff", "*",
-          "ZZ", "*",
-          "U", "*",
-          "0", "*",
-          "T", "*",
-          "^"
+          "SCAC", "*",
+          "", "*",
+          "124592j3", "*",
+          "", "*",
+          "CC"
         ],
         [
-          "GS", "*",
+          "B2A", "*",
           "00", "*",
-          "00", "*",
-          "", "*",
-          "09", "*",
-          "ZZ", "*",
-          "U", "*",
-          "0", "*"
+          "LT"
         ]
       ].map { |e| Edir::Segment.new(e) }
-      transaction_set = Edir::TransactionSet.new(header: [], footer: [], segments: segments)
+      transaction_set = Edir::TransactionSet.new(header: header, footer: footer, segments: segments)
       expected = [
         {
-          "ISA" => {
-            "e01" => "00",
-            "e02" => "00",
-            "e03" => "",
-            "e04" => "09",
-            "e05" => "005070479ff",
-            "e06" => "ZZ",
-            "e07" => "U",
-            "e08" => "0",
-            "e09" => "T",
-            "e10" => "^"
+          "ST" => {
+            "e01" => "204",
+            "e02" => "79902"
           }
         },
         {
-          "GS" => {
-            "e01" => "00",
-            "e02" => "00",
+          "B2" => {
+            "e01" => "",
+            "e02" => "SCAC",
             "e03" => "",
-            "e04" => "09",
-            "e05" => "ZZ",
-            "e06" => "U",
-            "e07" => "0"
+            "e04" => "124592j3",
+            "e05" => "",
+            "e06" => "CC"
+          }
+        },
+        {
+          "B2A" => {
+            "e01" => "00",
+            "e02" => "LT"
+          }
+        },
+        {
+          "SE" => {
+            "e01" => "925",
+            "e02" => "79902"
           }
         }
       ]
+      pp transaction_set.segments
       expect(transaction_set.to_h).to eq(expected)
     end
   end

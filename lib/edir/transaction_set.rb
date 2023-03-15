@@ -18,7 +18,7 @@ module Edir
     end
 
     def to_h
-      @segments.map(&:to_h)
+      segments.map(&:to_h)
     end
   end
 end
