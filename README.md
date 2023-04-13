@@ -25,20 +25,13 @@ There's not a lot to it. Use the parser like so:
 ```ruby
 require 'edir'
 
-edi_data = Edir::Parser.new.parse(edi_string)
+edi_data = Edir::Parsing.parse(edi_string)
 ```
 
 ### Example
 ```ruby
-parsed = Edir::Parser.new.parse(File.read('spec/fixtures/files/204_example_1.txt'))
+parsed = Edir::Parsing.parse(File.read('spec/fixtures/files/204_example_1.txt'))
 parsed.to_h # or .to_json
-```
-
-The lexer is implemented in pure ruby, so changes in `lexer.rb` are always current. However,
-the parser is converted from a racc/yacc specification to pure ruby. To rebuild the parser, run
-
-```ruby
-bundle exec rake parser[_debug]
 ```
 
 ## Development
