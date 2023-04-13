@@ -14,77 +14,21 @@ RSpec.configure do |config|
   end
 end
 
-INTERCHANGE_HEADER = [
-  "ISA", "*",
-  "00", "*",
-  "", "*",
-  "00", "*",
-  "", "*",
-  "ZZ", "*",
-  "SHIPPER", "*",
-  "02", "*",
-  "SCAC", "*",
-  "230309", "*",
-  "1640", "*",
-  "U", "*",
-  "00401", "*",
-  "000340000", "*",
-  "O", "*",
-  "P", "*",
-  "`"
-].freeze
+INTERCHANGE_HEADER = "ISA*00**00**ZZ*SHIPPER*02*SCAC*230309*1640*U*00401*000340000*O*P*`"
 
-INTERCHANGE_FOOTER = [
-  "IEA", "*",
-  "1", "*",
-  "000340000"
-].freeze
+INTERCHANGE_FOOTER = "IEA*1*000340000"
 
-FUNC_GROUP_HEADER = [
-  "GS", "*",
-  "SM", "*",
-  "SHIPPER", "*",
-  "SCAC", "*",
-  "20230309", "*",
-  "1620", "*",
-  "80", "*",
-  "X", "*",
-  "004010"
-].freeze
+FUNC_GROUP_HEADER = "GS*SM*SHIPPER*SCAC*20230309*1620*80*X*004010"
 
-FUNC_GROUP_FOOTER = [
-  "GE", "*",
-  "1", "*",
-  "80"
-].freeze
+FUNC_GROUP_FOOTER = "GE*1*80"
 
-TRANSAC_SET_HEADER = [
-  "ST", "*",
-  "204", "*",
-  "79902"
-].freeze
+TRANSAC_SET_HEADER = "ST*204*79902"
 
-TRANSAC_SET_FOOTER = [
-  "SE", "*",
-  "925", "*",
-  "79902"
-].freeze
+TRANSAC_SET_FOOTER = "SE*925*79902"
 
 SEGMENTS = [
-  [
-    "B2", "*",
-    "", "*",
-    "SCAC", "*",
-    "", "*",
-    "124592j3", "*",
-    "", "*",
-    "CC"
-  ],
-  [
-    "B2A", "*",
-    "00", "*",
-    "LT"
-  ]
+  "B2**SCAC**124592j3**CC",
+  "B2A*00*LT"
 ].freeze
 
 def build_document

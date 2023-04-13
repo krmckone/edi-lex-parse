@@ -8,7 +8,9 @@ require_relative "segment"
 
 module Edir
   # Converter methods for parsed EDI
-  module Convert
+  module Converter
+    module_function
+
     # For each transaction set start/end, create a unique transaction set object with
     # the corrsponding segments.
     # For each functional group start/end, create a unique functional group object with
