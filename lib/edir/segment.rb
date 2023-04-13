@@ -7,19 +7,15 @@ module Edir
 
     def initialize(data)
       @raw_data = data
-      @name = data.first
+      @raw_elements = @raw_data.split("*")
+      @name = @raw_elements.first
       build_elements
     end
 
     def build_elements
       @elements = []
-      position = 0
-      @raw_data[1..].each do |element|
-        if separator?(element)
-          position += 1
-        else
-          @elements.push([element, position])
-        end
+      @raw_elements[1..].each_with_index do |element, index|
+        @elements.push([element.strip, index + 1])
       end
     end
 
@@ -35,6 +31,10 @@ module Edir
       {
         @name => @elements.to_h { |e| ["e#{e.last.to_s.rjust(2, "0")}", e.first] }
       }
+    end
+
+    def to_s
+      "#<Edir::Segment #{@name}  #{@elements}>"
     end
   end
 end

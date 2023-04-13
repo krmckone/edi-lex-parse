@@ -10,12 +10,3 @@ require "rubocop/rake_task"
 RuboCop::RakeTask.new
 
 task default: %i[spec rubocop]
-
-desc "Generate Parser"
-task :parser do
-  `racc lib/edir/parser.y -o lib/edir/parser.rb`
-end
-
-task :parser_debug do
-  `racc -g lib/edir/parser.y -o lib/edir/parser.rb`
-end

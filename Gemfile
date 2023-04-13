@@ -15,7 +15,5 @@ gem "lex", "~> 0.1.0"
 
 gem "racc", "~> 1.6.0"
 
-group :development, :test do
-  gem "pry"
-  gem "pry-byebug"
-end
+gem "pry"
+gem "pry-byebug"
