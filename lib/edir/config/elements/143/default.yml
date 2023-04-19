@@ -1,0 +1,6 @@
+143:
+  type: ID
+  min: 3
+  max: 3
+  codes:
+    - 204

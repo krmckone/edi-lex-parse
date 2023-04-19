@@ -1,0 +1,5 @@
+heading:
+  - ST:
+      position: 010
+      appearance: M
+      max_use: 1
