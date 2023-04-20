@@ -3,7 +3,7 @@
 module Edir
   # Data class for interchanges
   class Interchange
-    attr_reader :func_groups
+    attr_reader :func_groups, :header, :footer
 
     def initialize(header:, footer:, func_groups:)
       @header = header

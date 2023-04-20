@@ -1,6 +1,13 @@
-143:
-  type: ID
-  min: 3
-  max: 3
-  codes:
-    - 204
+---
+identifier: 143
+name: Transaction Set Identifier Code
+description: Code identifying a Transaction Set
+type: ID
+min: 3
+max: 3
+codes:
+  - 204
+  - 210
+  - 214
+  - 990
+  - 997

@@ -24,7 +24,7 @@ RSpec.describe Edir::Parsing do
     base_path = "spec/fixtures/"
     data = File.read("#{base_path}/#{file}")
     it "example #{test_number} parses correctly" do
-      data = Edir::Parsing.parse(data)
+      data = Edir::Parsing.parse(raw_edi: data)
       data = data.interchanges if data.is_a? Edir::Document
       # Flatten the first level beacuse we're using map here
       expect(data.map(&:elements).flatten(1)).to eq(expected_data)

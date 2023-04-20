@@ -1,4 +1,7 @@
-329:
-  type: AN
-  min: 4
-  max: 9
+---
+identifier: 329
+name: Transaction Set Control Number
+description: Identifying control number that must be unique within the transaction set functional group assigned by the originator for a transaction set
+type: AN
+min: 4
+max: 9

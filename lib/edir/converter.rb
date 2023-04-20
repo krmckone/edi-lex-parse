@@ -5,6 +5,7 @@ require_relative "interchange"
 require_relative "functional_group"
 require_relative "transaction_set"
 require_relative "segment"
+require_relative "element"
 
 module Edir
   # Converter methods for parsed EDI

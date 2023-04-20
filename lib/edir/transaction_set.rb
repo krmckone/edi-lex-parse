@@ -3,6 +3,8 @@
 module Edir
   # Data class for a transaction set
   class TransactionSet
+    attr_reader :header, :footer
+
     def initialize(header:, footer:, segments:)
       @header = header
       @footer = footer

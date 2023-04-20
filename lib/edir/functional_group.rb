@@ -3,7 +3,7 @@
 module Edir
   # Data class for functional groups
   class FunctionalGroup
-    attr_reader :transac_sets
+    attr_reader :transac_sets, :header, :footer
 
     def initialize(header:, footer:, transac_sets:)
       @header = header
