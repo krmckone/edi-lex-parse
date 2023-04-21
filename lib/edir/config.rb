@@ -68,20 +68,22 @@ module Edir
       load_config(type: "transaction_set")
     end
 
-    def load_config(type:, name: nil)
+    def load_config(type:, name: nil, version: "default")
       valid_types = %w[element segment transaction_set]
       raise ArgumentError, "expected one of #{valid_types}, got '#{type}'" unless valid_types.include?(type)
 
       name ||= "**"
-      file_paths = get_config_file_paths(type: type, name: name)
+      file_paths = get_config_file_paths(type: type, name: name, version: version)
       file_paths.map do |path|
         YAML.load_file(path)
       end
     end
 
-    def get_config_file_paths(type:, name:)
+    def get_config_file_paths(type:, name:, version:)
+      version ||= "*"
+
       base_path = File.expand_path("config/#{type}s/#{name}", __dir__)
-      Dir["#{base_path}/*.yml"]
+      Dir["#{base_path}/#{version}.yml"]
     end
 
     private_class_method :get_config_file_paths

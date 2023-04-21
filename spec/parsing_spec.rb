@@ -27,7 +27,7 @@ RSpec.describe Edir::Parsing do
       data = Edir::Parsing.parse(raw_edi: data)
       data = data.interchanges if data.is_a? Edir::Document
       # Flatten the first level beacuse we're using map here
-      expect(data.map(&:elements).flatten(1)).to eq(expected_data)
+      expect(data.map(&:elements_to_s).flatten(1)).to eq(expected_data)
     end
   end
 

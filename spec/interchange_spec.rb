@@ -76,8 +76,6 @@ RSpec.describe Edir::Interchange do
           "e02" => "000340000"
         }
       }
-      pp interchange.to_h
-      pp expected
       expect(interchange.to_h).to eq(expected)
     end
   end

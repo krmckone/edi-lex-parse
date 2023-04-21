@@ -15,8 +15,8 @@ module Edir
       [@header] + @func_groups.map(&:segments).flatten + [@footer]
     end
 
-    def elements
-      segments.map(&:elements)
+    def elements_to_s
+      segments.map(&:elements_to_s)
     end
 
     def to_h
